@@ -3,11 +3,14 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private int healthPlayer = 100;
-    public void Sumarvida(int heal)
+    [SerializeField] private PlayerControl player;
+    [SerializeField] private UIManager Uimanager;
+   public void Sumarvida(int heal)
     {
         if (healthPlayer < 100)
         {
             healthPlayer += heal;
+            Uimanager._lifecountercolor(Color.green);
         }
 
         else
@@ -20,11 +23,21 @@ public class GameManager : MonoBehaviour
 
     {
         if (healthPlayer > 0)
+
         {
+
+
             healthPlayer -= _Damage;
-            Debug.Log("restar" + _Damage + "puntos de vida");
+            Uimanager._lifecountercolor(Color.red);
+            Debug.Log(" restar " + _Damage + " puntos de vida ");
 
         }
 
+        if(healthPlayer <= 0)
+        {
+            Destroy(player.gameObject);
+            Debug.Log("Se muriooo");
+        }
     }
+
 }
