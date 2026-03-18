@@ -1,8 +1,10 @@
 using System;
-using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -10,7 +12,9 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float fuerzaSalto = 125f;
     [SerializeField] private bool isGround;
     [SerializeField] private float moveSpeed = 5f;
-   
+    [SerializeField] public Text TextScore;
+    public int Score = 1;
+
     private void Awake()
     {
         _rb2d = GetComponent<Rigidbody2D>();
@@ -29,7 +33,7 @@ public class PlayerControl : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
+
         float movimientoHorizontal = Input.GetAxis("Horizontal");
         _rb2d.linearVelocity = new Vector2(movimientoHorizontal * moveSpeed, _rb2d.linearVelocity.y);
 
@@ -38,16 +42,26 @@ public class PlayerControl : MonoBehaviour
     {
         if (collision.gameObject.tag == "Ground")
         {
-            isGround=true;
+            isGround = true;
         }
-        
+
     }
-    private void OnCollisionExit2D (Collision2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Ground") 
+        if (collision.gameObject.tag == "Ground")
         {
             isGround = false;
         }
 
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Coin")
+        {
+            Score++;
+            TextScore.text = "Points = " + Score;
+
+
+        }
     }
 }

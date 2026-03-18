@@ -1,15 +1,20 @@
 using System;
+using System.Xml.Linq;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private int healthPlayer = 100;
     [SerializeField] private PlayerControl player;
     [SerializeField] private UIManager Uimanager;
-    [SerializeField] private int Points = 0;
-    
-   public void Sumarvida(int heal)
-   {
+    [SerializeField] public Text TextScore;
+    [SerializeField] public int Score;
+
+
+    public void Sumarvida(int heal)
+    {
         if (healthPlayer < 100)
         {
             healthPlayer += heal;
@@ -23,7 +28,7 @@ public class GameManager : MonoBehaviour
             healthPlayer = 100;
             Debug.Log("No curo");
         }
-   }
+    }
     public void RestarVida(int _Damage)
 
     {
@@ -67,19 +72,21 @@ public class GameManager : MonoBehaviour
             Uimanager._lifecountercolor(Color.darkRed);
         }
     }
-        public void Sumarpuntos(int _Coin)
+    public void Sumarpuntos(int _Coin)
+    {
+        if (Score == 0)
         {
-        if (Points == 0)
-        {
-            Points += _Coin;
+            Score += _Coin;
             Debug.Log("+1");
-
-
         }
+    }
+
+           
         
+           
+     
 
-  
 
-        }
-}
+       
+    }
 
